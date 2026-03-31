@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #060b14;
+  --bg-secondary: #0a1628;
+  --bg-card: rgba(10, 22, 40, 0.8);
+  --border-subtle: rgba(14, 143, 231, 0.15);
+  --border-glow: rgba(14, 143, 231, 0.4);
+  --text-primary: #f0f7ff;
+  --text-muted: #7a9bb5;
+  --stellar-blue: #0e8fe7;
+  --stellar-purple: #a855f7;
+  --success-green: #10d98a;
+  --error-red: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background mesh gradient */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(14, 143, 231, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 80%, rgba(14, 143, 231, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(14, 143, 231, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 143, 231, 0.5);
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(10, 22, 40, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(14, 143, 231, 0.12);
+  border-radius: 1.25rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(14, 143, 231, 0.25);
+  box-shadow: 0 8px 32px rgba(14, 143, 231, 0.08);
+}
+
+/* Button primary */
+.btn-primary {
+  background: linear-gradient(135deg, #0e8fe7 0%, #0270c4 100%);
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.4s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(14, 143, 231, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Button secondary (disconnect) */
+.btn-danger {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 0.75rem;
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+/* Input */
+.stellar-input {
+  background: rgba(6, 11, 20, 0.6);
+  border: 1px solid rgba(14, 143, 231, 0.2);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  padding: 0.875rem 1rem;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.stellar-input::placeholder {
+  color: rgba(122, 155, 181, 0.5);
+}
+
+.stellar-input:focus {
+  border-color: rgba(14, 143, 231, 0.5);
+  box-shadow: 0 0 0 3px rgba(14, 143, 231, 0.08);
+}
+
+/* Status badges */
+.badge-connected {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 217, 138, 0.1);
+  border: 1px solid rgba(16, 217, 138, 0.25);
+  border-radius: 9999px;
+  color: #10d98a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+}
+
+.badge-connected::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10d98a;
+  animation: pulse 2s infinite;
+}
+
+/* Star field */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Mono address */
+.address-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--stellar-blue);
+  letter-spacing: 0.05em;
+}
+
+/* Glow ring on logo */
+.logo-glow {
+  filter: drop-shadow(0 0 12px rgba(14, 143, 231, 0.6));
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14, 143, 231, 0.2), transparent);
+  margin: 1.5rem 0;
+}
+
+/* Success box */
+.success-box {
+  background: rgba(16, 217, 138, 0.08);
+  border: 1px solid rgba(16, 217, 138, 0.25);
+  border-radius: 0.875rem;
+  padding: 1rem 1.25rem;
+  animation: fadeInSlide 0.4s ease-out;
+}
+
+/* Error box */
+.error-box {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 0.875rem;
+  padding: 1rem 1.25rem;
+  animation: fadeInSlide 0.4s ease-out;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hash link */
+.hash-link {
+  color: var(--stellar-blue);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+
+.hash-link:hover {
+  color: #38aaf6;
+  text-decoration: underline;
+}
+
+/* Amount input number spinner hide */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
